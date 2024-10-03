@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des auteurs</title>
+    <!-- Ajout de la feuille de style CSS -->
+    <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
+</head>
+<body>
+
+    <h1>Liste des auteurs</h1>
+    <table>
+        <tr>
+            <th>Détails</th>
+            <th>Nom de l'auteur</th>
+            <th>Image</th>
+            <th>Email</th>
+            <th>Nombre de livres</th>
+        </tr>
+        {% if authors is defined and authors is not empty %}
+            {% for author in authors %}
+            <tr>
+                <td><a href="{{ path('app_author_details', {'id': author.id}) }}">Détails</a></td>
+                <td>{{ author.username|upper }}</td>
+                <td><img src="{{ asset(author.picture) }}" alt="{{ author.username }}" width="100" height="100"></td>
+                <td>{{ author.email }}</td>
+                <td>{{ author.nb_books }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun auteur disponible.</td>
+            </tr>
+        {% endif %}
+    </table>
+
+    <p>Nombre total d'auteurs : {{ authors|length }}</p>
+
+    <p>Nombre total de livres : 
+        {% set total_books = 0 %}
+        {% for author in authors %}
+            {% set total_books = total_books + author.nb_books %}
+        {% endfor %}
+        {{ total_books }}
+    </p>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+    <link rel="stylesheet" href="{{ asset('/css/style1.css') }}">
+
+<h1>Détails de l'auteur</h1>
+
+{% if author %}
+    <div>
+        <h2>{{ author.username|upper }}</h2>
+        <img src="{{ asset(author.picture) }}" alt="{{ author.username }}">
+        <p>Email: {{ author.email }}</p>
+        <p>Nombre de livres: {{ author.nb_books }}</p>
+    </div>
+{% else %}
+    <p>Aucun auteur trouvé.</p>
+{% endif %}
